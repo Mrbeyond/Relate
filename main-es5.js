@@ -425,7 +425,7 @@
                             token: localStorage.token ? JSON.parse(localStorage.token) : '',
                         })
                     };
-                    // this.url = 'http://192.168.43.41:2050';
+                    this.url = 'https://beyondchat.herokuapp.com';
                 }
                 RoomService.prototype.roomData = function (room) {
                     if (room) {
@@ -447,7 +447,7 @@
                 RoomService.prototype.allPcMessages = function (pcId) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                        _this.http.get("/api/getRoomMessages/" + pcId, _this.httpOption)
+                        _this.http.get(_this.url + "/getRoomMessages/" + pcId, _this.httpOption)
                             .subscribe(function (data) {
                             // console.log(` all messages fetched are ${JSON.stringify(data)}`);
                             observer.next(data);
@@ -457,7 +457,7 @@
                 RoomService.prototype.joinRoom = function (roomId) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                        _this.http.get("/api/joinRoom/" + roomId, _this.httpOption)
+                        _this.http.get(_this.url + "/joinRoom/" + roomId, _this.httpOption)
                             .subscribe(function (data) {
                             console.log(" new room member is fetched are " + JSON.stringify(data));
                             observer.next(data);
@@ -467,7 +467,7 @@
                 RoomService.prototype.leaveRoom = function (roomId, userId) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                        _this.http.get("/api/leaveRoom/" + roomId + "/" + userId, _this.httpOption)
+                        _this.http.get(_this.url + "/leaveRoom/" + roomId + "/" + userId, _this.httpOption)
                             .subscribe(function (data) {
                             console.log(" leave response is " + JSON.stringify(data));
                             observer.next(data);
@@ -477,7 +477,7 @@
                 RoomService.prototype.allMessages = function (roomId) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                        _this.http.get("/api/getRoomMessages/" + roomId, _this.httpOption)
+                        _this.http.get(_this.url + "/getRoomMessages/" + roomId, _this.httpOption)
                             .subscribe(function (data) {
                             // console.log(` all messages fetched are ${JSON.stringify(data)}`);
                             observer.next(data);
@@ -487,7 +487,7 @@
                 RoomService.prototype.allMembers = function (roomId) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                        _this.http.get("/api/getMembers/" + roomId, _this.httpOption)
+                        _this.http.get(_this.url + "/getMembers/" + roomId, _this.httpOption)
                             .subscribe(function (members) {
                             console.log(JSON.stringify(members));
                             observer.next(members);
@@ -497,7 +497,7 @@
                 RoomService.prototype.allRooms = function () {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                        _this.http.get("/api/getRooms", _this.httpOption)
+                        _this.http.get(_this.url + "/getRooms", _this.httpOption)
                             .subscribe(function (rooms) {
                             console.log(JSON.stringify(rooms));
                             observer.next(rooms);
@@ -829,6 +829,7 @@
                         groupname: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].minLength(3), _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].pattern('(^[a-zA-Z])([a-zA-Z0-9_]{2,})$')]],
                         type: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].minLength(1), _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].maxLength(1),]]
                     });
+                    this.url = 'https://beyondchat.herokuapp.com';
                 }
                 Object.defineProperty(DashboardComponent.prototype, "GroupName", {
                     get: function () { return this.newGroup.get('groupname'); },
@@ -853,7 +854,7 @@
                         try {
                             var formMedia = new FormData();
                             formMedia.append('image', this.photo);
-                            this.http.post('/api/upload', formMedia, httpOption)
+                            this.http.post(this.url + "/upload", formMedia, httpOption)
                                 .subscribe(function (data) { return _this.User.dp = data.dp; });
                         }
                         catch (error) {
@@ -871,7 +872,7 @@
                     this.createGroupSuccessMessage = '';
                     if (this.newGroup.valid) {
                         var formData = { name: this.GroupName.value, type: Number(this.Type.value) };
-                        this.http.post('/api/createRoom', formData, this.httpOption)
+                        this.http.post(this.url + "/createRoom", formData, this.httpOption)
                             .subscribe(function (data) {
                             if (data._id) {
                                 _this.allRooms.push(data);
@@ -1207,12 +1208,12 @@
                             token: localStorage.token ? JSON.parse(localStorage.token) : '',
                         })
                     };
-                    // this.url = 'http://192.168.43.41:2050';
+                    this.url = 'https://beyondchat.herokuapp.com';
                 }
                 UserService.prototype.returnUser = function () {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"](function (observer) {
-                        _this.Http.get("/api/returnUser", _this.httpOption)
+                        _this.Http.get(_this.url + "/returnUser", _this.httpOption)
                             .subscribe(function (data) {
                             if (data._id) {
                                 console.log(JSON.stringify(data));
@@ -1226,7 +1227,7 @@
                 UserService.prototype.userSignup = function (form) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"](function (observer) {
-                        _this.Http.post("/api/signup", form, _this.httpOption)
+                        _this.Http.post(_this.url + "/signup", form, _this.httpOption)
                             .subscribe(function (data) {
                             if (data.token) {
                                 localStorage.token = JSON.stringify(data.token);
@@ -1240,7 +1241,7 @@
                 UserService.prototype.userLogin = function (form) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"](function (observer) {
-                        _this.Http.post("/api/login", form, _this.httpOption)
+                        _this.Http.post(_this.url + "/login", form, _this.httpOption)
                             .subscribe(function (data) {
                             if (data.token) {
                                 localStorage.token = JSON.stringify(data.token);
@@ -1254,7 +1255,7 @@
                 UserService.prototype.getFollowers = function (acceptorId) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"](function (observer) {
-                        _this.Http.get("/api/followers/" + acceptorId, _this.httpOption)
+                        _this.Http.get(_this.url + "/followers/" + acceptorId, _this.httpOption)
                             .subscribe(function (data) {
                             if (data.length > 0) {
                                 console.log(JSON.stringify(data));
@@ -1266,7 +1267,7 @@
                 UserService.prototype.getFollowing = function (initiatorId) {
                     var _this = this;
                     return new rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"](function (observer) {
-                        _this.Http.get("/api/following/" + initiatorId, _this.httpOption)
+                        _this.Http.get(_this.url + "/following/" + initiatorId, _this.httpOption)
                             .subscribe(function (data) {
                             if (data.length > 0) {
                                 console.log(JSON.stringify(data));
@@ -1630,7 +1631,7 @@
                     this.room = false;
                     this.message = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]('default value');
                     this.Message$ = this.message.asObservable();
-                    this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__('http://192.168.43.41:2050');
+                    this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__('https://beyondchat.herokuapp.com');
                     console.log(this.socket.io);
                 }
                 SocketService.prototype.typing = function (user) {
